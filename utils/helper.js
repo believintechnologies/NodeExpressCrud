@@ -25,13 +25,11 @@ const hashPassword = async (password) => {
 };
 
 const generateToken = (user) => {
-  console.log(user);
   const secret = process.env.SECRET_KEY;
   const payload = {
     id: user[0]._id,
     emailAddress: user[0].emailAddress,
   };
-  console.log(payload);
   const options = {
     expiresIn: "1h",
   };
