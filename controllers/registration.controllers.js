@@ -1,37 +1,8 @@
 require("dotenv").config();
 
 const registrationModel = require("../models/registration.models");
-const { sign } = require("jsonwebtoken");
-const { hash } = require("bcrypt");
+const { generateToken,  hashPassword} = require('../utils/helper');
 
-const hashPassword = async (password) => {
-  try {
-    const genSalt = 10;
-    const hashedPass = await hash(password, genSalt);
-    return hashedPass;
-  } catch (err) {
-    res.status(500).json({
-      status: false,
-      error: {
-        code: 500,
-        message: err.message,
-      },
-    });
-  }
-};
-
-const generateToken = (user) => {
-  const secret = process.env.SECRET_KEY;
-  const payload = {
-    id: user._id,
-    emailAddress: user.emailAddress,
-  };
-  const options = {
-    expiresIn: "1h",
-  };
-  const token = sign(payload, secret, options);
-  return token;
-};
 
 const registrationNew = async (req, res) => {
   try {
