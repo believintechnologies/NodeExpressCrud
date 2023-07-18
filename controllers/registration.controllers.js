@@ -1,8 +1,7 @@
 require("dotenv").config();
 
 const registrationModel = require("../models/registration.models");
-const { generateToken,  hashPassword} = require('../utils/helper');
-
+const { generateToken, hashPassword } = require("../utils/helper");
 
 const registrationNew = async (req, res) => {
   try {

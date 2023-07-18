@@ -53,8 +53,8 @@ const formValidator = () => {
       .withMessage("Confirm Password Should not be empty.")
       .customSanitizer((value) => stripHtmlFromText(value))
       .optional()
-      .custom(async (value) => {
-        if (value !== req.body.password) {
+      .custom(async (value,{req}) => {
+          if (value !== req.body.password) {       
           throw new Error("Confirm Password not match.");
         }
       })

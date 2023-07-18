@@ -17,7 +17,7 @@ const login = async (req, res) => {
         return res.status(200).json({
           status: true,
           data: {
-            token: generateToken(userInfo),
+            token: generateToken(userInfo[0]),
             userInfo: {
               id: userInfo[0]._id,
               firstName: userInfo[0].firstName,
@@ -57,6 +57,18 @@ const login = async (req, res) => {
   }
 };
 
+const getDashboard = (req, res) => {
+  res.status(200).json({
+    status: true,
+    data: {
+      userInfo: req.user,
+    },
+    message: "Dashboard",
+    code: 200,
+  });
+};
+
 module.exports = {
   login,
+  getDashboard,
 };

@@ -10,25 +10,20 @@ const stripHtmlFromText = (text) => {
 
 const hashPassword = async (password) => {
   try {
-    const genSalt = process.env.GEN_SALT;
+    const genSalt = parseInt(process.env.GEN_SALT);
     const hashedPass = await hash(password, genSalt);
     return hashedPass;
+    
   } catch (err) {
-    res.status(500).json({
-      status: false,
-      error: {
-        code: 500,
-        message: err.message,
-      },
-    });
+    throw new Error(err.message);
   }
 };
 
 const generateToken = (user) => {
   const secret = process.env.SECRET_KEY;
   const payload = {
-    id: user[0]._id,
-    emailAddress: user[0].emailAddress,
+    id: user._id,
+    emailAddress: user.emailAddress,
   };
   const options = {
     expiresIn: "1h",
@@ -36,13 +31,6 @@ const generateToken = (user) => {
   const token = sign(payload, secret, options);
   return token;
 };
-
-
-const comparePassword = (password) => {
-
-}
-
-
 
 
 module.exports = {
